@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:migran_id/common/widgets/card_layanan.dart';
 import 'package:migran_id/common/widgets/long_card_layanan.dart';
 
@@ -334,10 +335,14 @@ class HomeView extends StatelessWidget {
                 crossAxisSpacing: 15,
                 childAspectRatio: 0.85,
                 children: [
+                  
                   CardLayanan(
                     icon: Icons.business_center_rounded,
                     title: 'Informasi\nOPP',
                     color: primaryColor,
+                    onTap:(){
+                      context.push('/modul');
+                    },
                   ),
                   CardLayanan(
                     icon: Icons.health_and_safety_rounded,
