@@ -13,19 +13,29 @@ class MainView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final index = ref.watch(bottomNavProvider);
 
-return Scaffold(
+    return Scaffold(
       body: child,
       bottomNavigationBar: BottomNavbar(
         currentIndex: index,
         onTap: (i) {
           ref.read(bottomNavProvider.notifier).state = i;
 
-          if (i == 0) context.go('/home');
-          if (i == 1) context.go('/contact');
-          if (i == 2) context.go('/profile');
+          switch (i) {
+            case 0:
+              context.go('/home');
+              break;
+            case 1:
+              context.go('/berita');
+              break;
+            case 2:
+              context.go('/contact');
+              break;
+            case 3:
+              context.go('/profile');
+              break;
+          }
         },
       ),
     );
-
   }
 }
