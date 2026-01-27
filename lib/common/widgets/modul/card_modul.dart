@@ -20,7 +20,7 @@ class ModuleCard extends StatelessWidget {
     // Determine button text based on progress
     String buttonText;
     if (module.progress == 0) {
-      buttonText = 'Gaskeun!';
+      buttonText = 'Mulai!';
     } else if (module.progress == 100) {
       buttonText = 'Review Lagi';
     } else {
@@ -308,18 +308,4 @@ class ModuleCard extends StatelessWidget {
         return warmGray;
     }
   }
-
-  // String _getProgressText(int progress) {
-  //   if (progress == 0) {
-  //     return 'Ayo mulai perjalanan belajarmu! ✨';
-  //   } else if (progress < 30) {
-  //     return 'Gas dikit lagi! 💪';
-  //   } else if (progress < 70) {
-  //     return 'Mantap, terusin! 🔥';
-  //   } else if (progress < 100) {
-  //     return 'Tinggal dikit nih! 🎯';
-  //   } else {
-  //     return 'Sempurna! Kamu jago banget! 🏆';
-  //   }
-  // }
 }

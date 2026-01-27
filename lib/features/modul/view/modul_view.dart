@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:migran_id/common/widgets/modul/card_modul.dart';
 import 'package:migran_id/common/widgets/modul/modul.dart';
 
@@ -13,10 +14,10 @@ class ModulView extends StatefulWidget {
   const ModulView({super.key});
 
   @override
-  State<ModulView> createState() => _HomeScreenState();
+  State<ModulView> createState() => _ModulViewState();
 }
 
-class _HomeScreenState extends State<ModulView> {
+class _ModulViewState extends State<ModulView> {
   int _activeCategoryIndex = 0;
 
   final List<Module> seaModules = [
@@ -128,7 +129,8 @@ class _HomeScreenState extends State<ModulView> {
                       color: secondaryColor,
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                  },
                 ),
                 Positioned(
                   right: 10,
@@ -408,8 +410,8 @@ class _HomeScreenState extends State<ModulView> {
                         children: [
                           Text(
                             _activeCategoryIndex == 0 
-                                ? 'Sea Based Modules' 
-                                : 'Land Based Modules',
+                                ? 'Sea Based Modul' 
+                                : 'Land Based Modul',
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w900,
@@ -417,7 +419,7 @@ class _HomeScreenState extends State<ModulView> {
                             ),
                           ),
                           Text(
-                            '${(_activeCategoryIndex == 0 ? seaModules : landModules).length} modul seru nih!',
+                            '${(_activeCategoryIndex == 0 ? seaModules : landModules).length} modul seru tersedia',
                             style: TextStyle(
                               fontSize: 13,
                               color: warmGray,
@@ -425,27 +427,27 @@ class _HomeScreenState extends State<ModulView> {
                           ),
                         ],
                       ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 14,
-                          vertical: 8,
-                        ),
-                        decoration: BoxDecoration(
-                          color: (_activeCategoryIndex == 0 ? kSeaColor : kLandColor).withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(
-                            color: (_activeCategoryIndex == 0 ? kSeaColor : kLandColor).withOpacity(0.3),
-                          ),
-                        ),
-                        child: Text(
-                          '🔥 Hot Content',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: _activeCategoryIndex == 0 ? kSeaColor : kLandColor,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
+                      // Container(
+                      //   padding: const EdgeInsets.symmetric(
+                      //     horizontal: 14,
+                      //     vertical: 8,
+                      //   ),
+                      //   decoration: BoxDecoration(
+                      //     color: (_activeCategoryIndex == 0 ? kSeaColor : kLandColor).withOpacity(0.1),
+                      //     borderRadius: BorderRadius.circular(20),
+                      //     border: Border.all(
+                      //       color: (_activeCategoryIndex == 0 ? kSeaColor : kLandColor).withOpacity(0.3),
+                      //     ),
+                      //   ),
+                      //   child: Text(
+                      //     '🔥 Hot Content',
+                      //     style: TextStyle(
+                      //       fontSize: 12,
+                      //       color: _activeCategoryIndex == 0 ? kSeaColor : kLandColor,
+                      //       fontWeight: FontWeight.w700,
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                   const SizedBox(height: 25),
@@ -453,30 +455,21 @@ class _HomeScreenState extends State<ModulView> {
                   // Module List
                   ...List.generate(
                     (_activeCategoryIndex == 0 ? seaModules : landModules).length,
-                    (index) => Padding(
-                      padding: const EdgeInsets.only(bottom: 20),
-                      child: ModuleCard(
-                        module: (_activeCategoryIndex == 0 ? seaModules : landModules)[index],
-                        onPressed: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Row(
-                                children: [
-                                  Icon(Icons.rocket_launch_rounded, color: Colors.white),
-                                  const SizedBox(width: 8),
-                                  Text('Yuk mulai belajar ${(_activeCategoryIndex == 0 ? seaModules : landModules)[index].title}!'),
-                                ],
-                              ),
-                              backgroundColor: primaryColor,
-                              behavior: SnackBarBehavior.floating,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
+                    (index) {
+                      //Ambil modul
+                      final module = (_activeCategoryIndex == 0 ? seaModules : landModules)[index];
+                      
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 20),
+                        child: ModuleCard(
+                          module: module,
+                          onPressed: () {
+                            final judulEncoded = Uri.encodeComponent(module.title);
+                            context.push('/modul/${module.id}?judul=$judulEncoded');
+                          },
+                        ),
+                      );
+                    },
                   ),
                   
                   // CTA Bottom
