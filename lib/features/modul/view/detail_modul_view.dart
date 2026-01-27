@@ -353,6 +353,7 @@ class _DetailModulViewState extends State<DetailModulView> {
                         label: 'Materi',
                       ),
                     ),
+                    
                     Expanded(
                       child: _buildTabButton(
                         index: 1,

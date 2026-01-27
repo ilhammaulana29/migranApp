@@ -17,7 +17,6 @@ final router = GoRouter(
 
     GoRoute(path: '/modul/:id',
       builder: (context,state){
-        // final id = state.pathParameters['id']!;
         final judul = state.uri.queryParameters['judul']!;
 
         return DetailModulView(
@@ -25,6 +24,9 @@ final router = GoRouter(
         );
       },
     ),
+
+    // GoRoute(path: '/modul/:id/materi',
+    //   builder: (context,state)=> const),
 
     // DENGAN Bottom Navigation
     ShellRoute(

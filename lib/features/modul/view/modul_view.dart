@@ -315,7 +315,7 @@ class _ModulViewState extends State<ModulView> {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          'Samsudin, terus gaskeun belajarnya! 🚀',
+                          'Rostchild, terus gaskeun belajarnya! 🚀',
                           style: TextStyle(
                             fontSize: 13,
                             color: Colors.white.withOpacity(0.9),
