@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:migran_id/common/widgets/card_layanan.dart';
-import 'package:migran_id/common/widgets/long_card_layanan.dart';
+import 'package:migran_id/common/widgets/app_bar.dart';
+import 'package:migran_id/common/widgets/home/card_layanan.dart';
+import 'package:migran_id/common/widgets/home/long_card_layanan.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -17,80 +18,7 @@ class HomeView extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: lightBeige,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
-        elevation: 1,
-        title: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(3),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(color: primaryColor, width: 2),
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Image.asset('assets/images/logo.jpeg', height: 34),
-              ),
-            ),
-            const SizedBox(width: 12),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'MigranID',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w800,
-                    fontSize: 18,
-                    color: secondaryColor,
-                    letterSpacing: -0.5,
-                  ),
-                ),
-                Text(
-                  'Solusi Migrasi Terpercaya',
-                  style: TextStyle(fontSize: 10, color: warmGray),
-                ),
-              ],
-            ),
-          ],
-        ),
-        actions: [
-          Container(
-            margin: const EdgeInsets.only(right: 12),
-            child: Stack(
-              children: [
-                IconButton(
-                  icon: Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: lightBeige,
-                    ),
-                    child: Icon(
-                      Icons.notifications_outlined,
-                      color: secondaryColor,
-                    ),
-                  ),
-                  onPressed: () {},
-                ),
-                Positioned(
-                  right: 10,
-                  top: 10,
-                  child: Container(
-                    width: 8,
-                    height: 8,
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+      appBar: const MigranAppBar(),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

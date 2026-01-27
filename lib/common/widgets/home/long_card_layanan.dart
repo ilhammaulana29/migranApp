@@ -92,7 +92,7 @@ class LongCardLayanan extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: 16,
+              top: 30,
               right: 0,
               child: Container(
                 width: 4,

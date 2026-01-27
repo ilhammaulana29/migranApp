@@ -22,16 +22,16 @@ class MainView extends ConsumerWidget {
 
           switch (i) {
             case 0:
-              context.go('/home');
+              context.go('/beranda');
               break;
             case 1:
               context.go('/berita');
               break;
             case 2:
-              context.go('/contact');
+              context.go('/kontak');
               break;
             case 3:
-              context.go('/profile');
+              context.go('/profil');
               break;
           }
         },

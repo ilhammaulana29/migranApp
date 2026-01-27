@@ -8,7 +8,7 @@ import '../../features/contact/view/contact_view.dart';
 import '../../features/profile/view/profile_view.dart';
 
 final router = GoRouter(
-  initialLocation: '/home',
+  initialLocation: '/beranda',
   routes: [
     // DENGAN Bottom Navigation
     ShellRoute(
@@ -16,19 +16,20 @@ final router = GoRouter(
         return MainView(child: child);
       },
       routes: [
-        GoRoute(path: '/home', builder: (context, state) => const HomeView()),
+        GoRoute(
+          path: '/beranda',
+          builder: (context, state) => const HomeView(),
+        ),
         GoRoute(path: '/berita', builder: (context, state) => const NewsView()),
         GoRoute(
-          path: '/contact',
+          path: '/kontak',
           builder: (context, state) => const ContactView(),
         ),
         GoRoute(
-          path: '/profile',
+          path: '/profil',
           builder: (context, state) => const ProfileView(),
         ),
-        GoRoute(path: '/modul',
-        builder: (context, state) => const ModulView(),
-        ),
+        GoRoute(path: '/modul', builder: (context, state) => const ModulView()),
       ],
     ),
   ],
