@@ -154,10 +154,9 @@ class CardMateri extends StatelessWidget {
   Widget _buildMateriMeta() {
     return Row(
       children: [
-        Icon(Icons.timer_outlined, size: 14, color: Colors.grey.shade500),
-        const SizedBox(width: 4),
+        Icon(Icons.book, size: 14, color: Colors.grey.shade500),
         Text(
-          materi.duration,
+          ' ${materi.halaman.toString()} Halaman',
           style: TextStyle(
             fontSize: 12,
             color: Colors.grey.shade600,

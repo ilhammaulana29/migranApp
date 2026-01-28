@@ -315,7 +315,7 @@ class _ModulViewState extends State<ModulView> {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          'Rostchild, terus gaskeun belajarnya! 🚀',
+                          'Suswanto, terus gaskeun belajarnya! 🚀',
                           style: TextStyle(
                             fontSize: 13,
                             color: Colors.white.withOpacity(0.9),
@@ -427,27 +427,6 @@ class _ModulViewState extends State<ModulView> {
                           ),
                         ],
                       ),
-                      // Container(
-                      //   padding: const EdgeInsets.symmetric(
-                      //     horizontal: 14,
-                      //     vertical: 8,
-                      //   ),
-                      //   decoration: BoxDecoration(
-                      //     color: (_activeCategoryIndex == 0 ? kSeaColor : kLandColor).withOpacity(0.1),
-                      //     borderRadius: BorderRadius.circular(20),
-                      //     border: Border.all(
-                      //       color: (_activeCategoryIndex == 0 ? kSeaColor : kLandColor).withOpacity(0.3),
-                      //     ),
-                      //   ),
-                      //   child: Text(
-                      //     '🔥 Hot Content',
-                      //     style: TextStyle(
-                      //       fontSize: 12,
-                      //       color: _activeCategoryIndex == 0 ? kSeaColor : kLandColor,
-                      //       fontWeight: FontWeight.w700,
-                      //     ),
-                      //   ),
-                      // ),
                     ],
                   ),
                   const SizedBox(height: 25),
@@ -465,7 +444,7 @@ class _ModulViewState extends State<ModulView> {
                           module: module,
                           onPressed: () {
                             final judulEncoded = Uri.encodeComponent(module.title);
-                            context.push('/modul/${module.id}?judul=$judulEncoded');
+                            context.push('/modul/${module.id}?judul=$judulEncoded&id=${module.id}');
                           },
                         ),
                       );

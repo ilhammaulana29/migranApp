@@ -12,13 +12,14 @@ const Color lightBeige = Color(0xFFF8F5F0);
 const Color seaColor = Color(0xFF2196F3);
 const Color landColor = Color(0xFF4CAF50);
 
-
 class DetailModulView extends StatefulWidget {
   final String modulTitle;
+  final String modulId;
   
   const DetailModulView({
     super.key,
     required this.modulTitle,
+    required this.modulId,
   });
 
   @override
@@ -26,7 +27,7 @@ class DetailModulView extends StatefulWidget {
 }
 
 class _DetailModulViewState extends State<DetailModulView> {
-  int _activeTabIndex = 0; // 0: Materi, 1: Overview, 2: Resources
+  int _activeTabIndex = 0; // 0: Materi, 1: Resources
   List<Materi> _listMateri = [];
 
   @override
@@ -42,7 +43,7 @@ class _DetailModulViewState extends State<DetailModulView> {
           id: 1,
           title: 'Pengenalan OPP & Legalitas',
           description: 'Pahami dasar-dasar OPP dan regulasi yang berlaku',
-          duration: '15 menit',
+          halaman: 10,
           isCompleted: true,
           isLocked: false,
           order: 1,
@@ -52,7 +53,7 @@ class _DetailModulViewState extends State<DetailModulView> {
           id: 2,
           title: 'Proses Rekrutmen OPP',
           description: 'Step-by-step cara daftar sampai seleksi',
-          duration: '20 menit',
+          halaman: 15,
           isCompleted: true,
           isLocked: false,
           order: 2,
@@ -62,7 +63,7 @@ class _DetailModulViewState extends State<DetailModulView> {
           id: 3,
           title: 'Interview Tips & Trik',
           description: 'Rahasia jawab pertanyaan interview dengan percaya diri',
-          duration: '25 menit',
+          halaman: 25,
           isCompleted: false,
           isLocked: false,
           order: 3,
@@ -72,7 +73,7 @@ class _DetailModulViewState extends State<DetailModulView> {
           id: 4,
           title: 'Medical Checkup Guide',
           description: 'Persiapan medical checkup agar lolos',
-          duration: '18 menit',
+          halaman: 18,
           isCompleted: false,
           isLocked: true,
           order: 4,
@@ -81,7 +82,7 @@ class _DetailModulViewState extends State<DetailModulView> {
           id: 5,
           title: 'Negosiasi Kontrak Kerja',
           description: 'Cara dapatkan gaji dan benefit terbaik',
-          duration: '30 menit',
+          halaman: 22,
           isCompleted: false,
           isLocked: true,
           order: 5,
@@ -109,7 +110,7 @@ class _DetailModulViewState extends State<DetailModulView> {
     }
 
     // Navigate to materi detail
-    context.push('/materi/${materi.id}');
+    context.push('/modul/${widget.modulId}/${materi.id}?judul=${materi.title}&halaman=${materi.halaman}');
   }
 
   @override
@@ -135,7 +136,7 @@ class _DetailModulViewState extends State<DetailModulView> {
             color: secondaryColor,
           ),
         ),
-        centerTitle: true,
+        centerTitle: false,
         actions: [
           Container(
             margin: const EdgeInsets.only(right: 12),
@@ -292,17 +293,15 @@ class _DetailModulViewState extends State<DetailModulView> {
                           ),
                           child: Stack(
                             children: [
-                              // Background container (full width, transparent atau warna background)
                               Container(
                                 decoration: BoxDecoration(
                                   color: Colors.white.withOpacity(0.2),
                                   borderRadius: BorderRadius.circular(5),
                                 ),
                               ),
-                              // Progress bar yang mengisi dari kiri ke kanan
                               FractionallySizedBox(
                                 widthFactor: progress.toDouble(),
-                                alignment: Alignment.centerLeft, // Penting: mulai dari kiri
+                                alignment: Alignment.centerLeft,
                                 child: Container(
                                   decoration: BoxDecoration(
                                     gradient: LinearGradient(
@@ -335,9 +334,112 @@ class _DetailModulViewState extends State<DetailModulView> {
               ),
             ),
 
-            // TAB SECTION
+            // OVERVIEW SECTION (ditampilkan langsung setelah hero)
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              padding: const EdgeInsets.fromLTRB(20, 25, 20, 0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Tentang Modul',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w800,
+                          color: secondaryColor,
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                        decoration: BoxDecoration(
+                          color: primaryColor.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Text(
+                          'Overview',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: secondaryColor,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    'Pahami apa yang akan kamu pelajari dan untuk siapa modul ini',
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: warmGray,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            // Overview Content Card
+            Container(
+              margin: const EdgeInsets.fromLTRB(20, 16, 20, 25),
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.08),
+                    blurRadius: 20,
+                    offset: const Offset(0, 6),
+                    spreadRadius: 1,
+                  ),
+                ],
+                border: Border.all(
+                  color: Colors.grey.withOpacity(0.1),
+                  width: 1,
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Apa yang akan kamu pelajari?',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.black87,
+                    ),
+                  ),
+                  const SizedBox(height: 14),
+                  ...List.generate(4, (index) => _buildLearningPoint(index)),
+                  const SizedBox(height: 24),
+                  Text(
+                    'Untuk siapa modul ini?',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.black87,
+                    ),
+                  ),
+                  const SizedBox(height: 14),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: [
+                      _buildAudienceChip('Calon Tenaga Kerja OPP'),
+                      _buildAudienceChip('Fresh Graduate'),
+                      _buildAudienceChip('Mau Ganti Karir'),
+                      _buildAudienceChip('Butuh Skill Baru'),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+
+            // TAB SECTION (hanya Materi dan Resources)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Container(
                 padding: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
@@ -353,17 +455,10 @@ class _DetailModulViewState extends State<DetailModulView> {
                         label: 'Materi',
                       ),
                     ),
-                    
+                    const SizedBox(width: 12),
                     Expanded(
                       child: _buildTabButton(
                         index: 1,
-                        icon: Icons.info_outline_rounded,
-                        label: 'Overview',
-                      ),
-                    ),
-                    Expanded(
-                      child: _buildTabButton(
-                        index: 2,
                         icon: Icons.attach_file_rounded,
                         label: 'Resources',
                       ),
@@ -380,8 +475,6 @@ class _DetailModulViewState extends State<DetailModulView> {
           ],
         ),
       ),
-      
-   
     );
   }
 
@@ -406,82 +499,80 @@ class _DetailModulViewState extends State<DetailModulView> {
     );
   }
 
-Widget _buildTabButton({
-  required int index,
-  required IconData icon,
-  required String label,
-}) {
-  final isActive = _activeTabIndex == index;
-  return GestureDetector(
-    onTap: () => setState(() => _activeTabIndex = index),
-    child: AnimatedContainer(
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeInOut,
-      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
-      decoration: BoxDecoration(
-        color: isActive ? Colors.white : Colors.white.withOpacity(0.0),
-        borderRadius: BorderRadius.circular(10),
-        border: isActive
-            ? Border.all(color: secondaryColor.withOpacity(0.2), width: 1.5)
-            : Border.all(color: Colors.transparent, width: 1.5),
-        boxShadow: isActive
-            ? [
-                BoxShadow(
-                  color: secondaryColor.withOpacity(0.1),
-                  blurRadius: 12,
-                  offset: const Offset(0, 3),
-                  spreadRadius: 0.5,
-                ),
-              ]
-            : [
-                BoxShadow(
-                  color: Colors.transparent,
-                  blurRadius: 0,
-                  offset: const Offset(0, 0),
-                ),
-              ],
+  Widget _buildTabButton({
+    required int index,
+    required IconData icon,
+    required String label,
+  }) {
+    final isActive = _activeTabIndex == index;
+    return GestureDetector(
+      onTap: () => setState(() => _activeTabIndex = index),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
+        decoration: BoxDecoration(
+          color: isActive ? Colors.white : Colors.white.withOpacity(0.0),
+          borderRadius: BorderRadius.circular(10),
+          border: isActive
+              ? Border.all(color: secondaryColor.withOpacity(0.2), width: 1.5)
+              : Border.all(color: Colors.transparent, width: 1.5),
+          boxShadow: isActive
+              ? [
+                  BoxShadow(
+                    color: secondaryColor.withOpacity(0.1),
+                    blurRadius: 12,
+                    offset: const Offset(0, 3),
+                    spreadRadius: 0.5,
+                  ),
+                ]
+              : [
+                  BoxShadow(
+                    color: Colors.transparent,
+                    blurRadius: 0,
+                    offset: const Offset(0, 0),
+                  ),
+                ],
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 250),
+              curve: Curves.easeInOut,
+              child: Icon(
+                icon,
+                size: isActive ? 22 : 20,
+                color: isActive ? secondaryColor : Colors.grey.shade600,
+              ),
+            ),
+            const SizedBox(height: 6),
+            AnimatedDefaultTextStyle(
+              duration: const Duration(milliseconds: 250),
+              style: TextStyle(
+                fontSize: isActive ? 13 : 12,
+                fontWeight: isActive ? FontWeight.w900 : FontWeight.w600,
+                color: isActive ? secondaryColor : Colors.grey.shade600,
+                height: 1.2,
+              ),
+              textAlign: TextAlign.center,
+              child: Text(
+                label,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ],
+        ),
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          AnimatedContainer(
-            duration: const Duration(milliseconds: 250),
-            curve: Curves.easeInOut,
-            child: Icon(
-              icon,
-              size: isActive ? 22 : 20,
-              color: isActive ? secondaryColor : Colors.grey.shade600,
-            ),
-          ),
-          const SizedBox(height: 6),
-          AnimatedDefaultTextStyle(
-            duration: const Duration(milliseconds: 250),
-            style: TextStyle(
-              fontSize: isActive ? 13 : 12,
-              fontWeight: isActive ? FontWeight.w900 : FontWeight.w600,
-              color: isActive ? secondaryColor : Colors.grey.shade600,
-              height: 1.2,
-            ),
-            textAlign: TextAlign.center,
-            child: Text(
-              label,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
-}
+    );
+  }
 
   Widget _buildTabContent() {
     switch (_activeTabIndex) {
       case 0: // Materi
         return _buildDaftarMateri();
-      case 1: // Overview
-        return _buildOverviewContent();
-      case 2: // Resources
+      case 1: // Resources
         return _buildResourcesContent();
       default:
         return Container();
@@ -490,7 +581,7 @@ Widget _buildTabButton({
 
   Widget _buildDaftarMateri() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -569,82 +660,12 @@ Widget _buildTabButton({
                   IconButton(
                     icon: Icon(Icons.arrow_forward_rounded, color: Colors.white),
                     onPressed: () {
-                      // Navigate to certificate
+                      
                     },
                   ),
                 ],
               ),
             ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildOverviewContent() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Tentang Modul',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w900,
-              color: secondaryColor,
-            ),
-          ),
-          const SizedBox(height: 20),
-          
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.05),
-                  blurRadius: 15,
-                  offset: const Offset(0, 5),
-                ),
-              ],
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Apa yang akan kamu pelajari?',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.black87,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                ...List.generate(4, (index) => _buildLearningPoint(index)),
-                const SizedBox(height: 20),
-                Text(
-                  'Untuk siapa modul ini?',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.black87,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                Wrap(
-                  spacing: 8,
-                  runSpacing: 8,
-                  children: [
-                    _buildAudienceChip('Calon Tenaga Kerja OPP'),
-                    _buildAudienceChip('Fresh Graduate'),
-                    _buildAudienceChip('Mau Ganti Karir'),
-                    _buildAudienceChip('Butuh Skill Baru'),
-                  ],
-                ),
-              ],
-            ),
-          ),
         ],
       ),
     );
@@ -663,7 +684,7 @@ Widget _buildTabButton({
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(Icons.check_circle_rounded, size: 18, color: landColor), // Menggunakan landColor
+          Icon(Icons.check_circle_rounded, size: 18, color: landColor),
           const SizedBox(width: 10),
           Expanded(
             child: Text(
@@ -707,7 +728,7 @@ Widget _buildTabButton({
     ];
     
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

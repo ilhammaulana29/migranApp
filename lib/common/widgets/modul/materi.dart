@@ -3,7 +3,7 @@ class Materi {
   final int id;
   final String title;
   final String description;
-  final String duration;
+  final int halaman;
   final bool isCompleted;
   final bool isLocked;
   final String? videoUrl;
@@ -14,7 +14,7 @@ class Materi {
     required this.id,
     required this.title,
     required this.description,
-    required this.duration,
+    required this.halaman,
     this.isCompleted = false,
     this.isLocked = false,
     this.videoUrl,
@@ -27,7 +27,7 @@ class Materi {
     int? id,
     String? title,
     String? description,
-    String? duration,
+    int? halaman,
     bool? isCompleted,
     bool? isLocked,
     String? videoUrl,
@@ -38,7 +38,7 @@ class Materi {
       id: id ?? this.id,
       title: title ?? this.title,
       description: description ?? this.description,
-      duration: duration ?? this.duration,
+      halaman: halaman ?? this.halaman,
       isCompleted: isCompleted ?? this.isCompleted,
       isLocked: isLocked ?? this.isLocked,
       videoUrl: videoUrl ?? this.videoUrl,
